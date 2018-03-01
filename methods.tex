@@ -1,0 +1,23 @@
+\section{Design}
+\subsection{Traditional and Baseline Methods}
+The multiple sequence alighment program, MAFFT \cite {MAFFT} may be used in conjunction with the HMMER \cite {HMMER3} tool, which generates hidden markov model based profiles given aligned sequences of a particular class. The workflow is thus:
+
+\begin{algorithm}
+\caption{Align and Profile}\label{euclid}
+\begin{algorithmic}[1]
+\State Convert all sequences to fasta representations
+\State Create an alignment of all sequences for each functional class separately using MAFFT
+\State Create a HMM profile for each alignment using hmmbuild
+\State Conduct inference on each test fasta sequence using hmmscan
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Kmer Featurization}
+Current featurization techniques use subsequence clustering techniques or presence of unique subsequences. Our technique aggregates kmer counts in parallel for all sequences. This results in many more data points than a unique subsequence technique or SPMap (clustering). The resulting dataset is potentially muchlarger and more sparse yet holds more fine-grained information. Any subsequence featurization method loses locale information, though this information is more present as kmer size increases.
+
+\subsection{LightGBM}
+LightGBM (Gradient Boosted Machine) \cite {LGBM} is an efficient algorithm that uses an ensemble of gradient boosted weak learner decision trees to make predictions. The framework was developed by Microsoft as a supposed successor to XGBoost \cite {Chen:2016:XST:2939672.2939785}, another gradient favorite of online machine learning competitions such as those found at Kaggle. The developers experimentally purport faster training speed, higher efficiency, lower memory usage, and on-par or better accuracy. The algorithm may be parallelized or trained using a GPU implicitly. Parallelization experiments evidence a near-linear speed-up.
+
+The algorithm works by training many decision trees (learners) on subsets of features and/or examples. These learner's loss is minimized using the differential computed gradient, allowing convergence of many learners at once, reducing potential for a sub-optimal solution as a single learner may be more prone to come by.
+
+Decision trees grow by leaf, not level, allowing faster and more efficent tree growth. The algorithm may bin continuous features as well as combine mutually exclusive features to save memory. To reduce communication overhead, all workers are provided with a full copy of the dataset, trading higher memory costs for computational performance. An additional improvement is the use of reduce scatter to merge only different features among workers, further reducing communication costs.

@@ -1,0 +1,14 @@
+\section{Conclusion}
+In this paper we tested the performance of state of the art and traditional methods on Patric bacterial gene annotation data. Specifically, we compared the results of the Light Gradient Boosting Machine framework with a traditional, oft in production sequence alignment and hidden-markov-model profiling approach. Data was featurized using kmers, k-length contiquous subsequence counts with no explicit feature decomposition, clustering or other techniques that would result in a potentially meaningful loss of information.
+
+The accuracy of the ensemble learning framework proved to be on-par or to outperform the traditional method, with a much more streamlined development, tuning and testing. Such an approach would allow much easier retraining given new data, as well as quicker inference.
+
+\subsection{Future Work}
+\subsubsection{Gene Annotation}
+There are several possible avenues for expanding the protein function annotation work. One simple enhancement would be to include downstream and upstream genetic data when training and testing the model, i.e. the genes contiguous to the target gene. While genes may code for proteins independently, they did not evolve independent of the organism and complete genetic structure.
+
+Furthermore, gene annotation is not an isolated task but is one part understanding genes and organisms. Other tasks such as sequence assembly and gene prediction are closely related. Multi-task models may be designed via ensemble methods, shared-layers or transfer learning. To this end it may prove useful to improve on end-end deep learning implementations. 
+
+While tree-based methods proved useful for learning simply from subsequence counts, such featurization methods ignores locality information. and does so at a cost of exponentially increasing feature dimensionality. Combining ensemble methods trained on aggregate counts with deep-learning models trained on raw sequences with feedback, memory and attention may prove useful for both generalizable prediction accuracy as well as any multi-modal or multi-task efforts.
+
+Another means of expansion is the integration of protein data labeled with go-terms. Go-terms are hierarchical and connected functional descriptors. Utilizing additional datasets such as the UniprotKB/Swiss-prot may potentially offer a clearer picture of the protein function latent space, allowing predictive models to generalize better, potentially even to genes and proteins not seen before. Such a leap may prove vital for quickly understanding newly discovered or mutated organisms, or may even aide in genetic engineering or biohacking efforts.

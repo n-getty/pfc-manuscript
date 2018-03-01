@@ -1,0 +1,53 @@
+\section{Results}
+\subsection{Function Prediction}
+In this section we report results using the described methods.
+\begin{table}[htb]
+\centering
+\caption{Sequence Alignment}
+\bigbreak
+\label{my-label}
+\begin{tabular}{llll}
+Dataset		&	Train Acc             & Val Acc & Top 5 Val Acc       \\
+Coreseed (1000 class) & 0.967   & 0.963         & 0.979 \\
+Small (100 class)     & 0.991   & 0.992         & 0.994
+\end{tabular}
+\bigbreak
+\footnotesize Results obtained using sequence alignment and HMM profiles
+\end{table}
+
+\begin{table}[htb]
+\caption{LGBM Model}
+\bigbreak
+\centering
+\label{my-label}
+\begin{tabular}{llll}
+Dataset 	&	Train Acc             & Val Acc & Top 5 Val Acc       \\
+Coreseed (1000 class) & 0.999   & 0.964         & 0.987 \\
+Small (100 class)     & 0.999   & 0.975         & 0.991
+\end{tabular}
+\bigbreak
+\footnotesize Results obtained training LGBM model with amino acid 1,2,3,4mers and nucleotide 1,3mers.
+\end{table}
+
+As shown above, the LightGBM model matches or outperforms the results of the other methods for both training and validation accuracy on the coreseed dataset. The fact that the sequence alignment method outperforms on the smaller dataset is expected, as some of the "true" labels for that set were obtained not through experiment but were automatically generated. 
+
+\begin{table}[ht!]
+\centering
+\caption{Combinatorial Feature Testing}
+\bigbreak
+\label{comb_feat}
+\begin{tabular}{lllll}
+\# of Features & Train Acc & Val Acc & Top 5 Val Acc & Time (sec) \\
+20             & 0.997     & 0.832   & 0.947         & 34         \\
+400            & 0.997     & 0.921   & 0.969         & 50         \\
+8000           & 0.992     & 0.953   & 0.975         & 133        \\
+160000         & 0.968     & 0.948   & 0.975         & 168        \\
+420            & 1         & 0.935   & 0.978         & 46         \\
+8420           & 0.999     & 0.962   & 0.987         & 159        \\
+168420         & 0.999     & 0.975   & 0.991         & 426        \\
+\end{tabular}
+\bigbreak
+\footnotesize Amino acid kmer featurization testing for small protein sequence and function dataset. Rows show datasets constructed using different combinations of kmer sizes. Growth is exponential and yet the accuracy consistently improves with more data.
+\end{table}
+
+Table III and IV show the scope of the problem in terms of computation time and memory (in terms of known feature dimensionality. Accuracy results using LGBM are reported for the different combinations of features. The model is able to accept and learn from more data well, and is seemingly resilient to what might be noise.

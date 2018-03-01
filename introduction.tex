@@ -1,0 +1,19 @@
+\section{Introduction}
+
+\subsection{Motivation}
+Thanks to faster sequencing techniques there has been an explosion of genomics data. The goal of this work was simple, a faster, simpler and modern genome annotation approach while maintaining or outperforming prediction accuracy of traditional methods. Secondly was the integration with this problem with RAN, a remote memory pool.
+
+\subsection{Background}
+\subsubsection{Protein Function}
+Amino acid sequences determine a protein’s structure. Intuitively, proteins with very similar sequences will often code for similar protein structures and ultimately function. Due to gaps in sequencing as well as insertions, deletions and mutations between organism's genes, these underlying similarities may not be so straightforward. Traditional methods such as BLAST/RAST sequence alignment and profile scanning may be slow and require several steps. These methods may be incapable of learning very small differences between similar sequences that may map to similar but separate functions.
+
+\subsubsection{Data}
+Patric \cite {PATRIC} is a bacterial genome database of over 100K genomes and a suite of tools including assembly and annotation. 
+
+\begin{tabular}{llll}
+Dataset & Classes & Examples & Avg Seq Length      \\
+Small   & 100     & 14862    & 1237 \\
+Core    & 1000    & 488626   & 1066
+\end{tabular}
+
+The above table reports the characteristics of the datasets used. The coreseed dataset is considered cleaner, with true labels the result of experimentation and not automatically generated.
